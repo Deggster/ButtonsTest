@@ -1,10 +1,10 @@
 version: 2
 tpsheetFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.tpsheet
-- Assets/Resouces/Textures/ButtonsSpriteAtlas.tpsheet
+- Assets/Resources/Textures/ButtonsSpriteAtlas.tpsheet
 textureFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites.png
-- Assets/Resouces/Textures/ButtonsSpriteAtlas.png
+- Assets/Resources/Textures/ButtonsSpriteAtlas.png
 normalmapFileNames:
 - Assets/codeandweb.com/Example/SpriteSheet/sprites_n.png
 - 
