@@ -7,26 +7,21 @@ using TMPro;
 
 public class DisolveAnimationController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    private float _animationTimePressed = 0.2f;
+    private float _animationTimeReleased = 1f;
+    private Vector3 _originalScale;
+    private Vector3 _scaleFactor = new Vector3(1f, 0.9f, 1f);
+    private Color _backgroundImageColor;
+    private float _originalAlpha;
+
     [SerializeField] private Button button;
     [SerializeField] private GameObject buttonImage;
     [SerializeField] private ParticleSystem particleSystem;
     [SerializeField] private UIDissolve disolveEffect;
     [SerializeField] private Image backgroundImage;
-    [SerializeField] private CanvasGroup Text;
-    [SerializeField]
-    [Range(0, 2)]
-    float _animationTimeReleased = 1f;
-
-    public Vector3 _scaleFactor = new Vector3(1f, 0.9f, 1f);
-
-    private float _animationTimePressed = 0.2f;
-    private Vector3 originalScale;
-    private Color _backgroundImageColor;
-    private float originalTextAlpha;
-
-    bool buttonPressed;
-
-    void Start()
+    [SerializeField] private CanvasGroup textCanvasGroup;
+       
+    private void Start()
     {
         if (button == null)
         {
@@ -34,8 +29,8 @@ public class DisolveAnimationController : MonoBehaviour, IPointerDownHandler, IP
         }
         _backgroundImageColor = backgroundImage.color;
 
-        originalScale = buttonImage.transform.localScale;
-        originalTextAlpha = Text.alpha;
+        _originalScale = buttonImage.transform.localScale;
+        _originalAlpha = textCanvasGroup.alpha;
 
         disolveEffect.effectFactor = 0;
         particleSystem.gameObject.SetActive(false);
@@ -45,16 +40,18 @@ public class DisolveAnimationController : MonoBehaviour, IPointerDownHandler, IP
     {
         buttonImage.transform.DOScale(_scaleFactor, _animationTimePressed).SetEase(Ease.InBack);
     }
+    
     private void ReleasedAnimation()
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Join(buttonImage.transform.DOScale(originalScale, _animationTimePressed).SetEase(Ease.OutBack));
+        sequence.Join(buttonImage.transform.DOScale(_originalScale, _animationTimePressed).SetEase(Ease.OutBack));
         sequence.Join(backgroundImage.DOColor(new Color(_backgroundImageColor.r, _backgroundImageColor.g, _backgroundImageColor.b, 0f), _animationTimeReleased));
-        sequence.Join(Text.DOFade(0, _animationTimeReleased));
+        sequence.Join(textCanvasGroup.DOFade(0, _animationTimeReleased));
         button.interactable = false;
         disolveEffect.Play(true);
         particleSystem.gameObject.SetActive(true);
     }
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         PreessAnimation();
@@ -67,9 +64,9 @@ public class DisolveAnimationController : MonoBehaviour, IPointerDownHandler, IP
 
     public void ResetAnimations()
     {
-        buttonImage.transform.localScale = originalScale;
+        buttonImage.transform.localScale = _originalScale;
         backgroundImage.color = _backgroundImageColor;
-        Text.alpha = originalTextAlpha;
+        textCanvasGroup.alpha = _originalAlpha;
         particleSystem.gameObject.SetActive(false);
         disolveEffect.effectFactor = 0;
         button.interactable = true;
