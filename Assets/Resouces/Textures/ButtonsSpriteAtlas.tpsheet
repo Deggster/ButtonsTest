@@ -1,0 +1,18 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:a68ebd8d5ff28288726546becadfb2bf:bb3e693af5f4458e3c163c451b65b626:4ce8a8aa85366fd35919b85ad1b8874a$
+#
+:format=40300
+:texture=ButtonsSpriteAtlas.png
+:size=256x256
+:pivotpoints=enabled
+:borders=enabled
+:alphahandling=ClearTransparentPixels
+
+Play;2;25;64;64; 1;1; 0;0;0;0
+Transparent;81;152;94;102; 0.5;0.5; 46;46;44;56
+Yellow;2;90;78;164; 0.5;0.5; 38;38;0;0
